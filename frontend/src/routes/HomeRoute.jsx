@@ -12,6 +12,7 @@ const HomeRoute = ({photos, topics, toggleModal, toggleFavorite, favoritedPhotos
       <PhotoList photos={photos} toggleFavorite={toggleFavorite} favoritedPhotos={favoritedPhotos} toggleModal={toggleModal}/>
     </div>
   );
+  
 };
 
 

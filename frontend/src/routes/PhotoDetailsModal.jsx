@@ -14,7 +14,7 @@ const PhotoDetailsModal = ({ onClose, photoData, isFavorited, toggleFavorite, fa
         <img src={closeSymbol} alt="close symbol" />
       </button>
       <div className='photo-details-modal__images'>
-        <PhotoFavButton isFavorited={isFavorited} onToggleFavorite={() => toggleFavorite(id)} photoId={id} />
+        <PhotoFavButton isFavorited={isFavorited} onToggleFavorite={() => toggleFavorite(id)} />
         <img className="photo-details-modal__image" src={imageSource} alt={`Image taken in ${city}, ${country}`} />
         <div className="photo-details-modal__header ">
           <div className='photo-details-modal__photographer-details'>

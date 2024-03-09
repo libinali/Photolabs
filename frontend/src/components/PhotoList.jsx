@@ -10,6 +10,7 @@ const PhotoList = ({photos, toggleFavorite, favoritedPhotos, toggleModal}) => {
           <PhotoListItem
             key={index}
             imageSource={photo.urls.regular}
+            id={photo.id}
             profile={photo.user.profile}
             username={photo.user.username}
             city={photo.location.city}
