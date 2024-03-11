@@ -1,11 +1,11 @@
-import { useReducer } from 'react';
+import { useReducer, useEffect } from 'react';
 import photos from 'mocks/photos';
 import topics from 'mocks/topics';
 
 
 const initialState = {
-  photoData: photos,
-  topicData: topics,
+  photoData: [],
+  topicData: [],
   showModal: false,
   selectedPhoto: null,
   favoritedPhotos: []
@@ -19,6 +19,8 @@ export const ACTIONS = {
   SELECT_PHOTO: 'SELECT_PHOTO',
   DISPLAY_PHOTO_DETAILS: 'DISPLAY_PHOTO_DETAILS'
 };
+
+
 
 // Reducer function to handle state transitions based on actions
 const reducer = (state, action) => {
@@ -61,6 +63,21 @@ const reducer = (state, action) => {
 const useApplicationData = () => {
 
   const [state, dispatch] = useReducer(reducer, initialState);
+  console.log(state.photoData);
+  
+  // fetch all photos
+  useEffect(() => {
+    fetch("/api/photos")
+      .then((response) => response.json())
+      .then((data) => dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: { photos: data } }));
+  }, []);
+
+  // fetch all topics
+  useEffect(() => {
+    fetch("/api/topics")
+      .then((response) => response.json())
+      .then((data) => dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: { topics: data } }));
+  }, []);
 
 
   const updateToFavPhotoIds = (photoId) => {

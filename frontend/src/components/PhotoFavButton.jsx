@@ -5,12 +5,8 @@ import '../styles/PhotoFavButton.scss';
 
 const PhotoFavButton = ({isFavorited, onToggleFavorite }) => {
 
-  const handleClick = () => {
-    onToggleFavorite();
-  };
-
   return (
-    <div className="photo-list__fav-icon" onClick={handleClick}>
+    <div className="photo-list__fav-icon" onClick={() => onToggleFavorite()}>
       <div className="photo-list__fav-icon-svg">
         <FavIcon selected={isFavorited} />
       </div>

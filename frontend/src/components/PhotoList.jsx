@@ -18,7 +18,7 @@ const PhotoList = ({photos, toggleFavorite, favoritedPhotos, toggleModal}) => {
             isFavorited={favoritedPhotos.includes(photo.id)}
             onToggleFavorite={() => toggleFavorite(photo.id)}
             toggleModal={toggleModal}
-            similarPhotos={photo.similarPhotos ? Object.values(photo.similarPhotos) : []}
+            similarPhotos={photo.similar_photos ? Object.values(photo.similar_photos) : []}
             favoritedPhotos={favoritedPhotos}
           />
         </li>
