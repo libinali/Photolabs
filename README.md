@@ -1,7 +1,8 @@
-# react-photolabs
-The PhotoLabs project for the Web Development React course programming.
-
 # Photolabs
+PhotoLabs is a dynamic single-page application (SPA) designed to showcase captivating photo collections across different genres. Built with React on the frontend and powered by Node.js and Express on the backend, PhotoLabs offers users an immersive platform to discover and enjoy a wide array of photographic content.
+
+## Final Product
+
 
 ## Setup
 
