@@ -1,13 +1,11 @@
 import { useReducer, useEffect } from 'react';
-import photos from 'mocks/photos';
-import topics from 'mocks/topics';
-
 
 const initialState = {
   photoData: [],
   topicData: [],
   showModal: false,
   selectedPhoto: null,
+  selectedTopic: null,
   favoritedPhotos: []
 };
 
@@ -17,6 +15,7 @@ export const ACTIONS = {
   SET_PHOTO_DATA: 'SET_PHOTO_DATA',
   SET_TOPIC_DATA: 'SET_TOPIC_DATA',
   SELECT_PHOTO: 'SELECT_PHOTO',
+  SELECT_TOPIC: 'SELECT_TOPIC',
   DISPLAY_PHOTO_DETAILS: 'DISPLAY_PHOTO_DETAILS'
 };
 
@@ -50,6 +49,11 @@ const reducer = (state, action) => {
       ...state,
       selectedPhoto: action.payload.photo
     };
+  case ACTIONS.SELECT_TOPIC:
+    return {
+      ...state,
+      selectedTopic: action.payload.topicId
+    };
   case ACTIONS.DISPLAY_PHOTO_DETAILS:
     return {
       ...state,
@@ -63,22 +67,6 @@ const reducer = (state, action) => {
 const useApplicationData = () => {
 
   const [state, dispatch] = useReducer(reducer, initialState);
-  console.log(state.photoData);
-  
-  // fetch all photos
-  useEffect(() => {
-    fetch("/api/photos")
-      .then((response) => response.json())
-      .then((data) => dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: { photos: data } }));
-  }, []);
-
-  // fetch all topics
-  useEffect(() => {
-    fetch("/api/topics")
-      .then((response) => response.json())
-      .then((data) => dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: { topics: data } }));
-  }, []);
-
 
   const updateToFavPhotoIds = (photoId) => {
 
@@ -99,6 +87,11 @@ const useApplicationData = () => {
     dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: { topics } });
   };
 
+  const getPhotosByTopic = topicId => {
+    dispatch({ type: ACTIONS.SELECT_TOPIC, payload: { topicId } });
+  };
+
+
   const setPhotoSelected = (photo) => {
     dispatch({ type: ACTIONS.SELECT_PHOTO, payload: { photo } });
     dispatch({ type: ACTIONS.DISPLAY_PHOTO_DETAILS, payload: { showModal: true } });
@@ -108,11 +101,41 @@ const useApplicationData = () => {
     dispatch({ type: ACTIONS.DISPLAY_PHOTO_DETAILS, payload: { showModal: false } });
   };
 
+  //fetch all photos
+  const getAllPhotos = () => {
+    fetch("/api/photos")
+      .then((response) => response.json())
+      .then((data) => dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: { photos: data } }));
+  };
+  
+  // fetch all photos on initial render
+  useEffect(() => {
+    getAllPhotos();
+  }, []);
+
+  // fetch all topics
+  useEffect(() => {
+    fetch("/api/topics")
+      .then((response) => response.json())
+      .then((data) => dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: { topics: data } }));
+  }, []);
+
+  // fetch photos based on topic
+  useEffect(() => {
+    if (state.selectedTopic) {
+      fetch(`/api/topics/photos/${state.selectedTopic}`)
+        .then(res => res.json())
+        .then(photosByTopic => dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: { photos: photosByTopic } }));
+    }
+  }, [state.selectedTopic]);
+
   return {
     state,
     updateToFavPhotoIds,
     setPhotoData,
     setTopicData,
+    getAllPhotos,
+    getPhotosByTopic,
     setPhotoSelected,
     onClosePhotoDetailsModal
   };

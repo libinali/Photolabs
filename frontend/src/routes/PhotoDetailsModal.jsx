@@ -6,8 +6,7 @@ import PhotoList from 'components/PhotoList';
 
 const PhotoDetailsModal = ({ onClose, photoData, isFavorited, toggleFavorite, favoritedPhotos }) => {
   const { id, imageSource, profile, username, city, country, similarPhotos } = photoData;
-
-  console.log(photoData);
+  
   return (
     <div className="photo-details-modal">
       <button className="photo-details-modal__close-button" onClick={onClose}>

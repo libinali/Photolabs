@@ -3,7 +3,8 @@ import TopicListItem from "./TopicListItem";
 
 import "../styles/TopicList.scss";
 
-const TopicList = ({topics}) => {
+const TopicList = ({ topics,  getPhotosByTopic }) => {
+
   return (
     <div className="top-nav-bar__topic-list">
       {topics.map((topic) =>
@@ -11,6 +12,8 @@ const TopicList = ({topics}) => {
           key={topic.id}
           slug={topic.slug}
           title={topic.title}
+          topicId={topic.id}
+          getPhotosByTopic={getPhotosByTopic}
         />
       )}
     </div>
