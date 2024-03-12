@@ -14,6 +14,7 @@ const App = () => {
     onClosePhotoDetailsModal,
   } = useApplicationData();
 
+  console.log(state.selectedPhoto);
   return (
     <div className="App">
       <HomeRoute
@@ -21,12 +22,13 @@ const App = () => {
         topics={state.topicData}
         getAllPhotos={getAllPhotos}
         getPhotosByTopic={getPhotosByTopic}
-        toggleModal={setPhotoSelected}
+        setPhotoSelected={setPhotoSelected}
         toggleFavorite={updateToFavPhotoIds}
         favoritedPhotos={state.favoritedPhotos}
       />
       {state.showModal && (
         <PhotoDetailsModal
+          setPhotoSelected={setPhotoSelected}
           onClose={onClosePhotoDetailsModal}
           photoData={state.selectedPhoto}
           toggleFavorite={updateToFavPhotoIds}

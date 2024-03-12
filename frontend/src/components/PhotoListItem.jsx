@@ -3,10 +3,10 @@ import PhotoFavButton from "./PhotoFavButton";
 
 import "../styles/PhotoListItem.scss";
 
-const PhotoListItem = ({ id, imageSource, profile, username, city, country, isFavorited, onToggleFavorite, toggleModal, similarPhotos }) => {
+const PhotoListItem = ({ id, imageSource, profile, username, city, country, isFavorited, onToggleFavorite, setPhotoSelected, similarPhotos }) => {
 
   const handleClick = () => {
-    toggleModal({
+    setPhotoSelected({
       imageSource,
       id,
       profile,

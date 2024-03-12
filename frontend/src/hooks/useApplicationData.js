@@ -96,7 +96,7 @@ const useApplicationData = () => {
 
   // Function to set selected photo and display photo details modal
   const setPhotoSelected = (photo) => {
-    dispatch({ type: ACTIONS.SELECT_PHOTO, payload: { photo } });
+    dispatch({ type: ACTIONS.SELECT_PHOTO, payload: { photo: photo } });
     dispatch({ type: ACTIONS.DISPLAY_PHOTO_DETAILS, payload: { showModal: true } });
   };
 
