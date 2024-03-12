@@ -20,7 +20,6 @@ export const ACTIONS = {
 };
 
 
-
 // Reducer function to handle state transitions based on actions
 const reducer = (state, action) => {
   switch (action.type) {
@@ -68,6 +67,7 @@ const useApplicationData = () => {
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  // Function to update favorited photo IDs
   const updateToFavPhotoIds = (photoId) => {
 
     const isFavorited = state.favoritedPhotos.includes(photoId);
@@ -79,48 +79,52 @@ const useApplicationData = () => {
     }
   };
   
+  // Function to set photo data
   const setPhotoData = (photos) => {
     dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: { photos } });
   };
 
+  // Function to set topic data
   const setTopicData = (topics) => {
     dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: { topics } });
   };
 
+  // Function to get photos by topic
   const getPhotosByTopic = topicId => {
     dispatch({ type: ACTIONS.SELECT_TOPIC, payload: { topicId } });
   };
 
-
+  // Function to set selected photo and display photo details modal
   const setPhotoSelected = (photo) => {
     dispatch({ type: ACTIONS.SELECT_PHOTO, payload: { photo } });
     dispatch({ type: ACTIONS.DISPLAY_PHOTO_DETAILS, payload: { showModal: true } });
   };
 
+  // Function to close photo details modal
   const onClosePhotoDetailsModal = () => {
     dispatch({ type: ACTIONS.DISPLAY_PHOTO_DETAILS, payload: { showModal: false } });
   };
 
-  //fetch all photos
+  // Fetch all photos
   const getAllPhotos = () => {
     fetch("/api/photos")
       .then((response) => response.json())
       .then((data) => dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: { photos: data } }));
   };
   
-  // fetch all photos on initial render
+  // Fetch all photos on initial render
   useEffect(() => {
     getAllPhotos();
   }, []);
 
-  // fetch all topics
+  // Fetch all topics on initial render
   useEffect(() => {
     fetch("/api/topics")
       .then((response) => response.json())
       .then((data) => dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: { topics: data } }));
   }, []);
 
-  // fetch photos based on topic
+  // Fetch photos based on selected topic
   useEffect(() => {
     if (state.selectedTopic) {
       fetch(`/api/topics/photos/${state.selectedTopic}`)
