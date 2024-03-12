@@ -14,7 +14,6 @@ const App = () => {
     onClosePhotoDetailsModal,
   } = useApplicationData();
 
-  console.log(state.selectedPhoto);
   return (
     <div className="App">
       <HomeRoute
