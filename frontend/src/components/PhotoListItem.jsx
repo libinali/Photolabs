@@ -7,15 +7,7 @@ const PhotoListItem = ({ id, imageSource, profile, username, city, country, isFa
 
   const handleClick = () => {
     setPhotoSelected({
-      imageSource,
-      id,
-      profile,
-      username,
-      city,
-      country,
-      isFavorited,
-      onToggleFavorite,
-      similarPhotos
+      id
     });
   };
 

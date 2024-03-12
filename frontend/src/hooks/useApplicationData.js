@@ -46,7 +46,7 @@ const reducer = (state, action) => {
   case ACTIONS.SELECT_PHOTO:
     return {
       ...state,
-      selectedPhoto: action.payload.photo
+      selectedPhoto: state.photoData.find((photo) => photo.id === action.payload.photo.id)
     };
   case ACTIONS.SELECT_TOPIC:
     return {
